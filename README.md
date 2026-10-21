@@ -6,4 +6,4 @@ A social movie and series rating app: rate titles, follow other users, and brows
 Java 25, Spring Boot, PostgreSQL, Flyway, React (planned)
 
 ## Status
-🚧 Work in progress
+Work in progress
