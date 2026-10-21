@@ -7,11 +7,11 @@ target/
 *.iml
 .vscode/
 
-# Node (a frontendhez)
+# Node
 node_modules/
 dist/
 
-# Titkok
+# Secrets
 .env
 *.env.local
 
