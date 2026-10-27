@@ -1,6 +1,7 @@
 # Java / Maven
 target/
 *.class
+${project.build.directory}/
 
 # IDE
 .idea/
