@@ -1,4 +1,4 @@
 package com.kira.backend.auth;
 
-public record LoginResponse(String accesToken, String tokenType, long expiresIn) {
+public record LoginResponse(String accessToken, String tokenType, long expiresIn) {
 }

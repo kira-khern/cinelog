@@ -40,12 +40,12 @@ public class AuthService {
         return UserResponse.from(userRepository.save(user));
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public LoginResponse login(LoginRequest request){
         User user = userRepository.findByUsername(request.username())
                 .orElseThrow(() -> invalidCredentials());
 
-        if(passwordEncoder.matches(request.password(), user.getPasswordHash())){
+        if(!passwordEncoder.matches(request.password(), user.getPasswordHash())){
             throw invalidCredentials();
         }
 
