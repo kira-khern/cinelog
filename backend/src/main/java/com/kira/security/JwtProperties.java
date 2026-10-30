@@ -1,4 +1,4 @@
-package com.kira.backend.security;
+package com.kira.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,4 +1,4 @@
-package com.kira.backend.user;
+package com.kira.user;
 
 import java.time.Instant;
 

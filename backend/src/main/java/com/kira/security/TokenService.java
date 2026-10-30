@@ -1,6 +1,6 @@
-package com.kira.backend.security;
+package com.kira.security;
 
-import com.kira.backend.user.User;
+import com.kira.user.User;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;

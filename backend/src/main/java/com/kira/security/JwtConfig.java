@@ -1,4 +1,4 @@
-package com.kira.backend.security;
+package com.kira.security;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

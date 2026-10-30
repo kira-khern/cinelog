@@ -1,6 +1,6 @@
-package com.kira.backend.auth;
+package com.kira.auth;
 
-import com.kira.backend.user.UserResponse;
+import com.kira.user.UserResponse;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
