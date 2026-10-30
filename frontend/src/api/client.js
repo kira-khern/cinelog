@@ -14,30 +14,30 @@ export function removeItemToken() {
 }
 
 export async function apiRequest(path, { method = 'GET', body } = {}) {
-    const headers = {'Content-Type': 'application/json'}
+    const headers = { 'Content-Type': 'application/json' }
 
     const token = getToken()
-    if(token){
+    if (token) {
         headers.Authorization = `Bearer ${token}`
     }
 
-    const response = await fetch(`${API_BASE}/api${path}` , {
+    const response = await fetch(`${API_BASE}/api${path}`, {
         method,
         headers,
-        body : body ? JSON.stringify(body) : undefined
+        body: body ? JSON.stringify(body) : undefined
 
     })
 
-    if(response.status == 204){
-        return null 
+    if (response.status == 204) {
+        return null
     }
 
     if (!response.ok) {
-    const errorBody = await response.json().catch(() => ({}))
-    const error = new Error(errorBody.message || `Request failed (${response.status})`)
-    error.status = response.status
-    throw error
-  }
+        const errorBody = await response.json().catch(() => ({}))
+        const error = new Error(errorBody.message || `Request failed (${response.status})`)
+        error.status = response.status
+        throw error
+    }
 
     return response.json()
 }

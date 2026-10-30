@@ -1,7 +1,16 @@
 :root {
+  --color-bg: #14181c;
+  --color-surface: #1c2228;
+  --color-border: #2c3440;
+  --color-text: #e8e8e8;
+  --color-muted: #9ab;
+  --color-accent: #00c030;
+  --color-error: #ff6b6b;
+  --radius: 6px;
+
   font-family: system-ui, sans-serif;
-  color: #e8e8e8;
-  background-color: #14181c;
+  color: var(--color-text);
+  background-color: var(--color-bg);
 }
 
 body {
@@ -9,5 +18,5 @@ body {
 }
 
 a {
-  color: #00c030;
+  color: var(--color-accent);
 }
