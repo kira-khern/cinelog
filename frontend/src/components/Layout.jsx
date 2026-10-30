@@ -1,19 +1,39 @@
-import { Link, Outlet } from "react-router";
+import { Link, Outlet, useNavigate } from "react-router";
+import { useAuth } from "../auth/AuthContext";
+import styles from './Layout.module.css'
 
-export default function Layout(){
-    return(
-    <>
-    <header style={{ display: 'flex', gap: '1rem', padding: '1rem', borderBottom: '1px solid #2c3440' }}>
-        <Link to="/"><strong>Cinelog</strong></Link>
-        <nav style={{ display: 'flex', gap: '1rem', marginLeft: 'auto' }}>
-          <Link to="/login">Log in</Link>
-          <Link to="/register">Register</Link>
-        </nav>
-    </header>
+export default function Layout() {
+    const {user, logout} = useAuth()
+    const navigate = useNavigate()
 
-     <main style={{ padding: '1rem', maxWidth: '960px', margin: '0 auto' }}>
-    <Outlet /> 
-     </main>
-    </>
+    function handleLogout(){
+        logout()
+        navigate('/')
+    }
+
+    return (
+        <>
+            <header className={styles.header}>
+                <Link to="/"><strong>Cinelog</strong></Link>
+                <nav className={styles.nav}>
+                    {user ? (
+                        <>
+                            <Link to="/profile">{user.username}</Link>
+                            <button onClick={handleLogout}>Log out</button>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/login">Log in</Link>
+                            <Link to="/register">Register</Link>
+                        </>
+                    )}
+                </nav>
+            
+        </header >
+
+            <main className={styles.main}>
+                <Outlet />
+            </main>
+        </>
     )
 }
