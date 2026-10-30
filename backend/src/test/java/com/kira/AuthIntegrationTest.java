@@ -1,7 +1,7 @@
-package com.kira.backend;
+package com.kira;
 
 import com.jayway.jsonpath.JsonPath;
-import com.kira.backend.user.UserRepository;
+import com.kira.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

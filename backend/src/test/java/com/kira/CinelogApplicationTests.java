@@ -1,4 +1,4 @@
-package com.kira.backend;
+package com.kira;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.kira.backend.auth;
+package com.kira.auth;
 
 import jakarta.validation.constraints.NotBlank;
 

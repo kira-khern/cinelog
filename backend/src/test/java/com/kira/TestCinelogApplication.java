@@ -1,4 +1,4 @@
-package com.kira.backend;
+package com.kira;
 
 import org.springframework.boot.SpringApplication;
 

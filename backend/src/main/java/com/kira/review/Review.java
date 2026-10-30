@@ -1,7 +1,7 @@
-package com.kira.backend.review;
+package com.kira.review;
 
-import com.kira.backend.title.Title;
-import com.kira.backend.user.User;
+import com.kira.title.Title;
+import com.kira.user.User;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;

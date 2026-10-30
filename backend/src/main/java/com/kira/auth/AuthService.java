@@ -1,9 +1,9 @@
-package com.kira.backend.auth;
+package com.kira.auth;
 
-import com.kira.backend.security.TokenService;
-import com.kira.backend.user.User;
-import com.kira.backend.user.UserRepository;
-import com.kira.backend.user.UserResponse;
+import com.kira.security.TokenService;
+import com.kira.user.User;
+import com.kira.user.UserRepository;
+import com.kira.user.UserResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

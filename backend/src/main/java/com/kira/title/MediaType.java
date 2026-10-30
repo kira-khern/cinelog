@@ -1,4 +1,4 @@
-package com.kira.backend.title;
+package com.kira.title;
 
 public enum MediaType {
     FILM,
