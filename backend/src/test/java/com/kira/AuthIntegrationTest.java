@@ -56,7 +56,9 @@ public class AuthIntegrationTest {
                         .content("""
                                 {"username": "kira", "email": "other@example.com", "password": "password123"}
                                 """))
-                .andExpect(status().isConflict());
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.status").value(409))
+                .andExpect(jsonPath("$.detail").value("Username is already taken"));
     }
 
     @Test
@@ -66,7 +68,9 @@ public class AuthIntegrationTest {
                         .content("""
                                 {"username": "kira", "email": "not-an-email", "password": "password123"}
                                 """))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.title").value("Validation failed"))
+                .andExpect(jsonPath("$.errors.email").exists());
     }
 
     @Test
@@ -92,7 +96,8 @@ public class AuthIntegrationTest {
                         .content("""
                                 {"username": "kira", "password": "wrongpassword"}
                                 """))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.detail").value("Invalid username or password"));
     }
 
     @Test
@@ -117,6 +122,19 @@ public class AuthIntegrationTest {
         mockMvc.perform(get("/api/users/me")
                         .header("Authorization", "Bearer not.a.valid.token"))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void meForDeletedUserReturnsNotFound() throws Exception {
+        register("kira", "kira@example.com", "password123");
+        String token = login("kira", "password123");
+        userRepository.deleteAll();
+
+        mockMvc.perform(get("/api/users/me")
+                        .header("Authorization", "Bearer " + token))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.status").value(404))
+                .andExpect(jsonPath("$.detail").value("User not found"));
     }
 
     private void register(String username, String email, String password) throws Exception {
