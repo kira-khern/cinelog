@@ -1,5 +1,7 @@
 package com.kira.auth;
 
+import com.kira.common.exception.ConflictException;
+import com.kira.common.exception.InvalidCredentialsException;
 import com.kira.security.TokenService;
 import com.kira.user.User;
 import com.kira.user.UserRepository;
@@ -28,10 +30,10 @@ public class AuthService {
         String email = request.email().toLowerCase();
 
         if(userRepository.existsByEmail(email)){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email is already registered");
+            throw new ConflictException("Email is already registered");
         }
         if(userRepository.existsByUsername(request.username())){
-            throw new ResponseStatusException(HttpStatus.CONFLICT, "Username is already used");
+            throw new ConflictException("Username is already taken");
         }
 
         String password = passwordEncoder.encode(request.password());
@@ -43,17 +45,13 @@ public class AuthService {
     @Transactional(readOnly = true)
     public LoginResponse login(LoginRequest request){
         User user = userRepository.findByUsername(request.username())
-                .orElseThrow(() -> invalidCredentials());
+                .orElseThrow(InvalidCredentialsException::new);
 
         if(!passwordEncoder.matches(request.password(), user.getPasswordHash())){
-            throw invalidCredentials();
+            throw new InvalidCredentialsException();
         }
 
         String token = tokenService.createToken(user);
         return new LoginResponse(token, "Bearer", tokenService.getExpirationSeconds());
-    }
-
-    private ResponseStatusException invalidCredentials(){
-        return new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid username or password");
     }
 }
