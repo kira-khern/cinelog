@@ -1,5 +1,6 @@
 package com.kira.user;
 
+import com.kira.common.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserResponse getByUsername(String username){
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Username not found"));
+                .orElseThrow(() -> new NotFoundException("User not found"));
 
         return UserResponse.from(user);
     }
