@@ -1,4 +1,4 @@
-package com.kira.title.tmdb;
+package com.kira.title;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

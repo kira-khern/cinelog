@@ -1,4 +1,4 @@
-package com.kira.title.tmdb;
+package com.kira.title;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

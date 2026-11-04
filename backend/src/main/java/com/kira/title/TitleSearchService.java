@@ -1,9 +1,5 @@
 package com.kira.title;
 
-import com.kira.title.tmdb.TmdbClient;
-import com.kira.title.tmdb.TmdbMapper;
-import com.kira.title.tmdb.TmdbSearchResponse;
-import com.kira.title.tmdb.TmdbSearchResult;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 

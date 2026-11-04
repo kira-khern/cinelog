@@ -1,7 +1,4 @@
-package com.kira.title.tmdb;
-
-import com.kira.title.MediaType;
-import com.kira.title.TitleSearchResult;
+package com.kira.title;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +47,7 @@ public final class TmdbMapper {
         return results;
     }
 
-    static MediaType toMediatype(String tmdbMediaType){
+    public static MediaType toMediatype(String tmdbMediaType){
         if("movie".equals(tmdbMediaType)) {
             return MediaType.MOVIE;
         }
@@ -60,7 +57,7 @@ public final class TmdbMapper {
         return null;
     }
 
-    static Integer toYear(String date){
+    public static Integer toYear(String date){
         if(date == null || date.length() < 4){
             return null;
         }
