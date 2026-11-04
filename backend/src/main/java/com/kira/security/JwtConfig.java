@@ -1,7 +1,6 @@
 package com.kira.security;
 
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
@@ -14,7 +13,6 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 
 @Configuration
-@EnableConfigurationProperties(JwtProperties.class)
 public class JwtConfig {
     private final SecretKey secretKey;
 

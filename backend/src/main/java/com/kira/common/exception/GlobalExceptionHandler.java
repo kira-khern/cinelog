@@ -52,6 +52,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, "The resource already exists or conflicts with existing data");
     }
 
+    @ExceptionHandler(ExternalServiceException.class)
+    public ProblemDetail handleExternalService(ExternalServiceException ex){
+        logger.warn("External service error: {}", ex.getMessage(), ex.getCause());
+        return ProblemDetail.forStatusAndDetail(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
+    }
+
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleUnexcepted(Exception ex){
         logger.error("Unexcepted error", ex);
