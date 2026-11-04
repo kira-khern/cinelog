@@ -1,6 +1,6 @@
 package com.kira.title;
 
 public enum MediaType {
-    FILM,
+    MOVIE,
     SERIES
 }
