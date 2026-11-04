@@ -4,6 +4,7 @@ import com.kira.title.tmdb.TmdbClient;
 import com.kira.title.tmdb.TmdbMapper;
 import com.kira.title.tmdb.TmdbSearchResponse;
 import com.kira.title.tmdb.TmdbSearchResult;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class TitleSearchService {
         this.tmdbClient = tmdbClient;
     }
 
+    @Cacheable(cacheNames = "titleSearch", key = "#query.trim().toLowerCase()")
     public List<TitleSearchResult> search(String query){
         TmdbSearchResponse response = tmdbClient.searchMulti(query.trim());
         return TmdbMapper.toSearchResults(response);
