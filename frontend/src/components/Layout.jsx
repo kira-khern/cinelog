@@ -3,10 +3,10 @@ import { useAuth } from "../auth/AuthContext";
 import styles from './Layout.module.css'
 
 export default function Layout() {
-    const {user, logout} = useAuth()
+    const { user, logout } = useAuth()
     const navigate = useNavigate()
 
-    function handleLogout(){
+    function handleLogout() {
         logout()
         navigate('/')
     }
@@ -18,6 +18,7 @@ export default function Layout() {
                 <nav className={styles.nav}>
                     {user ? (
                         <>
+                            <Link to="/search">Search</Link>
                             <Link to="/profile">{user.username}</Link>
                             <button onClick={handleLogout}>Log out</button>
                         </>
@@ -28,12 +29,17 @@ export default function Layout() {
                         </>
                     )}
                 </nav>
-            
-        </header >
+
+            </header >
 
             <main className={styles.main}>
                 <Outlet />
             </main>
+
+            <footer className={styles.footer}>
+                <img src="/tmdb-logo.svg" alt="TMDB logo" className={styles.tmdbLogo} />
+                <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+            </footer>
         </>
     )
 }
