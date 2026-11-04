@@ -6,6 +6,7 @@ import HomePage from './pages/HomePage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ProfilePage from './pages/ProfilePage'
+import SearchPage from './pages/SearchPage'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
 
             <Route element={<ProtectedRoute />}>
               <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/search" element={<SearchPage />} />
             </Route>
           </Route>
         </Routes>
