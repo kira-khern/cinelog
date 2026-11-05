@@ -70,10 +70,12 @@ class TitleSearchIntegrationTest {
     }
 
     @Test
-    void searchWithoutTokenReturnsUnauthorized() throws Exception {
+    void searchWithoutTokenIsAllowed() throws Exception {
+        when(tmdbClient.searchMulti("interstellar")).thenReturn(new TmdbSearchResponse(List.of()));
+
         mockMvc.perform(get("/api/titles/search")
                         .param("query", "interstellar"))
-                .andExpect(status().isUnauthorized());
+                .andExpect(status().isOk());
     }
 
     @Test
