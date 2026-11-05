@@ -64,7 +64,10 @@ export default function SearchPage() {
 
   return (
     <section>
-      <h1>Search</h1>
+      <header className={styles.header}>
+        <h1 className={styles.title}>Search</h1>
+        <p className={styles.subtitle}>Find movies and series to rate, review and add to your list.</p>
+      </header>
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
