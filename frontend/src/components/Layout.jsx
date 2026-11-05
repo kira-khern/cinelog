@@ -16,9 +16,9 @@ export default function Layout() {
             <header className={styles.header}>
                 <Link to="/"><strong>Cinelog</strong></Link>
                 <nav className={styles.nav}>
+                    <Link to="/search">Search</Link>
                     {user ? (
                         <>
-                            <Link to="/search">Search</Link>
                             <Link to="/profile">{user.username}</Link>
                             <button onClick={handleLogout}>Log out</button>
                         </>
