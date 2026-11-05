@@ -39,6 +39,11 @@
   backdrop-filter: var(--blur-glass);
 }
 
+.btn-sm {
+  padding: 0.45rem 1rem;
+  font-size: 0.85rem;
+}
+
 .btn-secondary:hover:not(:disabled) {
   background-color: var(--color-surface-hover);
 }
