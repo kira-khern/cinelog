@@ -56,7 +56,7 @@ export default function LoginPage() {
 
                 {error && <p className={styles.error}>{error}</p>}
 
-                <button type="submit" className={styles.button} disabled={submitting}>
+                <button type="submit" className="btn btn-primary" disabled={submitting}>
                     {submitting ? 'Logging in...' : 'Log in'}
                 </button>
             </form>

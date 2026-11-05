@@ -68,7 +68,7 @@ export default function SearchPage() {
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <input
-          className={styles.input}
+          className="input"
           type="search"
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -76,7 +76,7 @@ export default function SearchPage() {
           maxLength={100}
           aria-label="Search movies and series"
         />
-        <button type="submit" className={styles.button}>Search</button>
+        <button type="submit" className="btn btn-primary">Search</button>
       </form>
 
       {loading && <p className={styles.status}>Searching...</p>}
