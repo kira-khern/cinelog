@@ -8,10 +8,12 @@
 
 A social movie and series diary: rate what you watch, follow other people and see their reviews in a feed. A Spring Boot REST API with JWT authentication and a PostgreSQL database managed by Flyway, and a React single-page app, deployed on Render, Neon and Cloudflare.
 
-**Status: work in progress.** Authentication, CI and deployment are done. Movie search, reviews and the feed are next – see the [Roadmap](#roadmap).
+**Status: work in progress.** Authentication, movie search, the design system, CI and deployment are done. Reviews and the feed are next – see the [Roadmap](#roadmap).
 
 **Live demo:**  https://cinelog-cx3.pages.dev/
 (The backend runs on Render's free tier and sleeps when idle, so the first request can take up to a minute.)
+
+![Cinelog home page](docs/screenshot-home.png)
 
 
 ## Why this project exists
@@ -27,24 +29,28 @@ The project is built in vertical slices: each feature goes from the database to 
 - Stay logged in across page reloads
 - Protected pages that redirect to the login page when logged out
 - Profile page for the current user
+- Search movies and series (TMDB), also without an account
+- Responsive dark design with a shared design system
 
 **Planned** (see [Roadmap](#roadmap))
-- Search movies and series (TMDB)
 - Rate and review titles with half-star ratings
 - Follow users and read their reviews in a feed
 - Likes, watchlist, weekly trending titles
 - AI summary of what users think about a title
 
+![Search results for Interstellar](docs/screenshot-search.png)
+
 ## Tech stack
 
 | Layer | Technologies |
 |---|---|
-| Backend | Java 25, Spring Boot 4.1 (Web MVC, Data JPA, Security, OAuth2 Resource Server, Validation) |
+| Backend | Java 25, Spring Boot 4.1 (Web MVC, Data JPA, Security, OAuth2 Resource Server, Validation), Spring Cache with Caffeine |
 | Database | PostgreSQL 17, Flyway migrations |
-| Frontend | React 19, React Router 7, Vite 8, JavaScript, CSS Modules |
+| Frontend | React 19, React Router 7, Vite 8, JavaScript, CSS Modules with design tokens |
 | Testing | JUnit, Spring Boot Test, MockMvc, Testcontainers |
 | DevOps | Docker (multi-stage), Docker Compose, GitHub Actions |
 | Hosting | Render (backend), Neon (database), Cloudflare (frontend) |
+| External API | TMDB |
 
 ## How it works
 
@@ -142,6 +148,8 @@ PostgreSQL runs on port **5433**, so it does not clash with a local PostgreSQL i
 
 ### 2. Start the backend
 
+Create `backend/.env` from `backend/.env.example` and add your [TMDB API Read Access Token](https://www.themoviedb.org/settings/api). Spring Boot reads this file on startup; it is git-ignored.
+
 ```bash
 cd backend
 ./mvnw spring-boot:run        # Windows: .\mvnw.cmd spring-boot:run
@@ -172,6 +180,7 @@ Open http://localhost:5173.
 | `CORS_ALLOWED_ORIGINS` | Comma-separated origins allowed to call the API | `http://localhost:5173` |
 | `PORT` | HTTP port | `8080` |
 | `VITE_API_URL` | Frontend build only: the API's base URL | empty (the dev proxy is used) |
+| `TMDB_API_TOKEN` | TMDB API Read Access Token | none – put it in `backend/.env` locally |
 
 ## API
 
@@ -182,6 +191,7 @@ Every endpoint except `/api/auth/**` requires an `Authorization: Bearer <token>`
 | POST | `/api/auth/register` | Public | Create a user. `201`, `400` for invalid input, `409` if the username or email is taken |
 | POST | `/api/auth/login` | Public | Returns `{ "accessToken", "tokenType", "expiresIn" }`. `200`, or `401` on bad credentials |
 | GET | `/api/users/me` | User | The logged-in user's profile |
+| GET | `/api/titles/search?query=...` | Public | Movies and series matching the query. `400` for an empty query, `503` if TMDB is unavailable |
 
 ## Running the tests
 
@@ -206,15 +216,13 @@ GitHub Actions runs the backend tests and the frontend lint and build on every p
 
 ### Known issues
 
-- Error responses still use Spring's default error format; a consistent `ProblemDetail` format is planned.
 - The frontend does not log out automatically when the token expires after one hour; the next request simply fails.
 - The JWT is stored in `localStorage`. It is simple for a separate SPA, but readable by any script on the page; an HttpOnly cookie would be safer against XSS.
 - Usernames are case-sensitive (`Kira` and `kira` are different users), while emails are stored in lower case.
-- If two people register the same username at the same moment, the database constraint stops the second one, but the API answers `500` instead of `409`.
 - The styling is temporary until the final design is done.
+- `401` responses for a missing or invalid token come from the security filter and do not use the ProblemDetail format yet.
 
 ### First fixes
-1. Global error handling with `ProblemDetail`, which also turns the duplicate-registration `500` into a `409`.
 2. Case-insensitive usernames.
 3. Automatic logout on the frontend when the token expires.
 
@@ -226,15 +234,15 @@ GitHub Actions runs the backend tests and the frontend lint and build on every p
 - [x] Registration and JWT login
 - [x] React frontend with login, registration and protected routes
 - [x] Deployment
-- [ ] Global error handling with `ProblemDetail`
-- [ ] Search movies and series via TMDB
+- [x] Global error handling with `ProblemDetail`
+- [x] Search movies and series via TMDB
+- [x] Final design
 - [ ] Reviews, title page with average rating
 - [ ] Follow users, feed with cursor pagination
 - [ ] Likes and watchlist
 - [ ] AI summary of reviews for a title
 - [ ] Weekly trending titles with a scheduled job
 - [ ] OpenAPI / Swagger UI
-- [ ] Final design
 
 Progress is tracked on the [project board](https://github.com/users/kira-khern/projects/1) 
 
@@ -244,4 +252,4 @@ I planned and built Cinelog on my own after the Codecool program. I used Claude 
 
 ## Author
 
-Built by Kíra ([@kira-khern](https://github.com/kira-khern)).
+Built by Kíra Khern ([@kira-khern](https://github.com/kira-khern)).

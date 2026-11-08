@@ -35,53 +35,56 @@ export default function RegisterPage() {
         }
     }
 
-    return (
-        <section className={styles.container}>
-            <h1>Register</h1>
+   return (
+  <div className={styles.wrapper}>
+    <section className={styles.card}>
+      <h1 className={styles.title}>Create account</h1>
+      <p className={styles.subtitle}>Rate what you watch and see what your friends are into.</p>
 
-            <form onSubmit={handleSubmit} className={styles.form}>
-                <FormField
-                    label="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                    minLength={3}
-                    maxLength={30}
-                    pattern="[a-zA-Z0-9_]+"
-                    title="Letters, numbers and underscores only"
-                    autoComplete="username"
-                />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <FormField
+          label="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          minLength={3}
+          maxLength={30}
+          pattern="[a-zA-Z0-9_]+"
+          title="Letters, numbers and underscores only"
+          autoComplete="username"
+        />
 
-                <FormField
-                    label="Email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    autoComplete="email"
-                />
+        <FormField
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+          autoComplete="email"
+        />
 
-                <FormField
-                    label="Password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    minLength={8}
-                    maxLength={72}
-                    autoComplete="new-password"
-                />
+        <FormField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          minLength={8}
+          maxLength={72}
+          autoComplete="new-password"
+        />
 
-                {error && <p className={styles.error}>{error}</p>}
+        {error && <p className={styles.error} role="alert">{error}</p>}
 
-                <button type="submit" className={styles.button} disabled={submitting}>
-                    {submitting ? 'Creating account...' : 'Create account'}
-                </button>
-            </form>
+        <button type="submit" className={`btn btn-primary ${styles.submit}`} disabled={submitting}>
+          {submitting ? 'Creating account...' : 'Create account'}
+        </button>
+      </form>
 
-            <p>
-                Already have an account? <Link to="/login">Log in</Link>
-            </p>
-        </section>
-    )
+      <p className={styles.switch}>
+        Already have an account? <Link to="/login">Log in</Link>
+      </p>
+    </section>
+  </div>
+)
 }

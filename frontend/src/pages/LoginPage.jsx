@@ -32,38 +32,41 @@ export default function LoginPage() {
         }
     }
 
-    return (
-        <section className={styles.container}>
-            <h1>Log in</h1>
+   return (
+  <div className={styles.wrapper}>
+    <section className={styles.card}>
+      <h1 className={styles.title}>Log in</h1>
+      <p className={styles.subtitle}>Welcome back. Pick up where you left off.</p>
 
-            <form onSubmit={handleSubmit} className={styles.form}>
-                <FormField
-                    label="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                    autoComplete="username"
-                />
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <FormField
+          label="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          autoComplete="username"
+        />
 
-                <FormField
-                    label="Password"
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    autoComplete="current-password"
-                />
+        <FormField
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          autoComplete="current-password"
+        />
 
-                {error && <p className={styles.error}>{error}</p>}
+        {error && <p className={styles.error} role="alert">{error}</p>}
 
-                <button type="submit" className={styles.button} disabled={submitting}>
-                    {submitting ? 'Logging in...' : 'Log in'}
-                </button>
-            </form>
+        <button type="submit" className={`btn btn-primary ${styles.submit}`} disabled={submitting}>
+          {submitting ? 'Logging in...' : 'Log in'}
+        </button>
+      </form>
 
-            <p>
-                No account yet? <Link to="/register">Register</Link>
-            </p>
-        </section>
-    )
+      <p className={styles.switch}>
+        No account yet? <Link to="/register">Create one</Link>
+      </p>
+    </section>
+  </div>
+)
 }
